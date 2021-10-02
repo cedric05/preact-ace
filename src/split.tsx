@@ -9,7 +9,7 @@ import { Ace, Range } from "ace-builds";
 import Editor = Ace.Editor;
 import { Split } from "ace-builds/src-noconflict/ext-split";
 import * as PropTypes from "prop-types";
-import * as React from "react";
+import * as React from "preact";
 const isEqual = require("lodash.isequal");
 const get = require("lodash.get");
 import {

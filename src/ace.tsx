@@ -1,7 +1,7 @@
 import { Ace, Range } from "ace-builds";
 import * as AceBuilds from "ace-builds";
 import * as PropTypes from "prop-types";
-import * as React from "react";
+import * as React from "preact";
 const isEqual = require("lodash.isequal");
 import {
   debounce,
@@ -24,7 +24,7 @@ import {
 
 export interface IAceEditorProps {
   name?: string;
-  style?: React.CSSProperties;
+  style?: object; //React.CSSProperties;
   /** For available modes see https://github.com/thlorenz/brace/tree/master/mode */
   mode?: string | object;
   /** For available themes see https://github.com/thlorenz/brace/tree/master/theme */
@@ -233,8 +233,7 @@ export default class ReactAce extends React.Component<IAceEditorProps> {
       .setMode(
         typeof mode === "string" ? `ace/mode/${mode}` : (mode as Ace.SyntaxMode)
       );
-    if(theme && theme !== "")
-      this.editor.setTheme(`ace/theme/${theme}`);
+    if (theme && theme !== "") this.editor.setTheme(`ace/theme/${theme}`);
     this.editor.setFontSize(
       typeof fontSize === "number" ? `${fontSize}px` : fontSize
     );

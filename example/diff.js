@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import { Component, render } from "preact";
 import { diff as DiffEditor } from "../src/index";
 
 import "ace-builds/src-noconflict/mode-jsx";

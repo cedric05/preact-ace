@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import { Component, render, h } from "preact";
 import AceEditor from "../src/ace";
 
 import "ace-builds/src-noconflict/mode-jsx";
