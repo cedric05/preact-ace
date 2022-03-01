@@ -1,0 +1,152 @@
+From 566e5815d85bdc326e52b7696b9f5188ba820c28 Mon Sep 17 00:00:00 2001
+From: prasanth <11557066+cedric05@users.noreply.github.com>
+Date: Sat, 2 Oct 2021 15:43:37 +0530
+Subject: [PATCH] temporary changes to work with preact
+
+---
+ .babelrc           | 7 ++++++-
+ example/diff.js    | 3 +--
+ example/index.html | 2 +-
+ example/index.js   | 3 +--
+ example/split.js   | 3 +--
+ src/ace.tsx        | 7 +++----
+ src/diff.tsx       | 2 +-
+ src/split.tsx      | 2 +-
+ tsconfig.json      | 2 +-
+ 9 files changed, 16 insertions(+), 15 deletions(-)
+
+diff --git a/.babelrc b/.babelrc
+index 339ca44..0f17da5 100644
+--- a/.babelrc
++++ b/.babelrc
+@@ -4,6 +4,11 @@
+     "@babel/preset-react"
+   ],
+   "plugins": [
+-    // "transform-object-rest-spread"
++    [
++      "@babel/plugin-transform-react-jsx",
++      {
++        "pragma": "h"
++      }
++    ]
+   ]
+ }
+\ No newline at end of file
+diff --git a/example/diff.js b/example/diff.js
+index 9253340..1645146 100644
+--- a/example/diff.js
++++ b/example/diff.js
+@@ -1,5 +1,4 @@
+-import React, { Component } from "react";
+-import { render } from "react-dom";
++import { Component, render } from "preact";
+ import { diff as DiffEditor } from "../src/index";
+ 
+ import "ace-builds/src-noconflict/mode-jsx";
+diff --git a/example/index.html b/example/index.html
+index 2259f38..08f24d9 100644
+--- a/example/index.html
++++ b/example/index.html
+@@ -12,6 +12,6 @@
+       <div id="example"></div>
+     </div>
+   </div>
+-  <script src="./static/index.js"></script>
++  <script src="./static/split.js"></script>
+ </body>
+ </html>
+diff --git a/example/index.js b/example/index.js
+index e176ec6..a8bdacc 100644
+--- a/example/index.js
++++ b/example/index.js
+@@ -1,5 +1,4 @@
+-import React, { Component } from "react";
+-import { render } from "react-dom";
++import { Component, render, h } from "preact";
+ import AceEditor from "../src/ace";
+ 
+ import "ace-builds/src-noconflict/mode-jsx";
+diff --git a/example/split.js b/example/split.js
+index 240f47f..c1c597f 100644
+--- a/example/split.js
++++ b/example/split.js
+@@ -1,5 +1,4 @@
+-import React, { Component } from "react";
+-import { render } from "react-dom";
++import { Component, render, h } from "preact";
+ import SplitAceEditor from "../src/split";
+ import "ace-builds/src-noconflict/mode-jsx";
+ import "ace-builds/src-min-noconflict/ext-searchbox";
+diff --git a/src/ace.tsx b/src/ace.tsx
+index a6ced86..ad2949e 100644
+--- a/src/ace.tsx
++++ b/src/ace.tsx
+@@ -1,7 +1,7 @@
+ import { Ace, Range } from "ace-builds";
+ import * as AceBuilds from "ace-builds";
+ import * as PropTypes from "prop-types";
+-import * as React from "react";
++import * as React from "preact";
+ const isEqual = require("lodash.isequal");
+ import {
+   debounce,
+@@ -24,7 +24,7 @@ import {
+ 
+ export interface IAceEditorProps {
+   name?: string;
+-  style?: React.CSSProperties;
++  style?: object; //React.CSSProperties;
+   /** For available modes see https://github.com/thlorenz/brace/tree/master/mode */
+   mode?: string | object;
+   /** For available themes see https://github.com/thlorenz/brace/tree/master/theme */
+@@ -233,8 +233,7 @@ export default class ReactAce extends React.Component<IAceEditorProps> {
+       .setMode(
+         typeof mode === "string" ? `ace/mode/${mode}` : (mode as Ace.SyntaxMode)
+       );
+-    if(theme && theme !== "")
+-      this.editor.setTheme(`ace/theme/${theme}`);
++    if (theme && theme !== "") this.editor.setTheme(`ace/theme/${theme}`);
+     this.editor.setFontSize(
+       typeof fontSize === "number" ? `${fontSize}px` : fontSize
+     );
+diff --git a/src/diff.tsx b/src/diff.tsx
+index bd2c375..be62b9a 100644
+--- a/src/diff.tsx
++++ b/src/diff.tsx
+@@ -1,5 +1,5 @@
+ import * as PropTypes from "prop-types";
+-import * as React from "react";
++import * as React from "preact";
+ import SplitEditor from "./split";
+ const DiffMatchPatch = require("diff-match-patch");
+ import { IEditorProps } from "./types";
+diff --git a/src/split.tsx b/src/split.tsx
+index 2d4f9b3..b771f33 100644
+--- a/src/split.tsx
++++ b/src/split.tsx
+@@ -9,7 +9,7 @@ import { Ace, Range } from "ace-builds";
+ import Editor = Ace.Editor;
+ import { Split } from "ace-builds/src-noconflict/ext-split";
+ import * as PropTypes from "prop-types";
+-import * as React from "react";
++import * as React from "preact";
+ const isEqual = require("lodash.isequal");
+ const get = require("lodash.get");
+ import {
+diff --git a/tsconfig.json b/tsconfig.json
+index e3d57e0..d2865e9 100644
+--- a/tsconfig.json
++++ b/tsconfig.json
+@@ -5,7 +5,7 @@
+     "noImplicitAny": true,
+     "declaration": true,
+     "module": "commonjs",
+-    "target": "es5",
++    "target": "ES2019",
+     "jsx": "react",
+     "allowSyntheticDefaultImports": true
+   },
+-- 
+2.25.1
+

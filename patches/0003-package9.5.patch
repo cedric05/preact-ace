@@ -1,0 +1,60 @@
+diff --git a/package.json b/package.json
+index 5b85540..76a7a81 100644
+--- a/package.json
++++ b/package.json
+@@ -1,7 +1,7 @@
+ {
+-  "name": "react-ace",
+-  "version": "9.5.0",
+-  "description": "A react component for Ace Editor",
++  "name": "@cedric05/preact-ace",
++  "version": "10.5.0",
++  "description": "A preact component for Ace Editor",
+   "main": "lib/index.js",
+   "types": "lib/index.d.ts",
+   "scripts": {
+@@ -23,9 +23,11 @@
+     "coverage": "nyc npm run test",
+     "prepare": "npm run build:lib"
+   },
+-  "author": "James Hrisho",
++  "author": "prasanth",
+   "license": "MIT",
+   "devDependencies": {
++    "@babel/eslint-parser": "^7.15.7",
++    "@babel/plugin-transform-react-jsx": "^7.14.9",
+     "@babel/cli": "^7.15.7",
+     "@babel/core": "^7.15.8",
+     "@babel/preset-env": "^7.15.8",
+@@ -76,8 +78,8 @@
+   "keywords": [
+     "ace",
+     "ace editor",
+-    "react-component",
+-    "react"
++    "preact-component",
++    "preact"
+   ],
+   "dependencies": {
+     "ace-builds": "^1.4.13",
+@@ -92,8 +94,8 @@
+     }
+   },
+   "peerDependencies": {
+-    "react": "^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0",
+-    "react-dom": "^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0"
++    "preact": "^10.5.14"
++    
+   },
+   "nyc": {
+     "exclude": [
+@@ -116,7 +118,8 @@
+   },
+   "repository": {
+     "type": "git",
+-    "url": "http://github.com/securingsincity/react-ace.git"
++    "url": "http://github.com/cedric05/preact-ace.git",
++    "forked_from": "http://github.com/securingsincity/preact-ace.git"
+   },
+   "prettier": {
+     "singleQuote": false,
